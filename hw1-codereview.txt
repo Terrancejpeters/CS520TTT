@@ -1,0 +1,37 @@
+/* CS 520 Assignment 1: Code Review -- Terrance J. Peters */
+
+**Code Review**
+
+Violations of Best Practices:
+
+***********************
+
+1) Too many repeated condition checks. 
+
+Within the code there are numerous repetitions of a style of "if" statement following the pattern "if e.getsource() == blocks[x][y]...", that is used to check if a win condition has been found for each player (Almost every snippet is copy-pasted twice to consider it for each player). This also means that conditions are based on a sequential placement of X's and O's rather than a relational check of the board (As of this writing, using unusual placements can result in a bug that causes a win to not register). 
+
+A way to correct this would be to design a method that can check win conditions for a player based on the state of the gameboard in following a player's turn, and checking the condition dynamically based on the currently played "block". 
+
+***********************
+
+2) Seperation of MVC
+
+Within the Model View Controller schema, there is almost no seperation of any code controlling the Model, View or Controller. All code controlling the logic of the game (i.e tracking board model, catching win conditions, etc) is within the same code of the Controller generator and View Code. 
+
+A fix for this would be creating different Java files that contain the appropriate code for each of these three sections.
+
+***********************
+
+3) Appropriate Data Encapsulation
+
+Doing a quick search of the TicTacToe.java file, it becomes immediately obvious that all methods and variable declarations are public. Given the problem listed above at #2, there is no seperation of variables to the relevant code snippets, or anything protecting methods to local areas where doing such would be relevant. 
+
+A fix for this would be to create private, locailzed variables relevant to the code snippet it is encapsulated within.
+
+***********************
+
+4) Inappropriate Method Definition Location
+
+The method "Actionperformed" is created within a for-loop. It's a miracle this code works in the first place. Every time the loop runs, this method is being generated again to be used within the loop. 
+
+The solution would be to find a more appropriate location to generate this method (Likely within the code for the controller), and remove bulk code that is inappropriate for this method. 

@@ -13,7 +13,7 @@ public class TicTacToe {
     public JFrame gui = new JFrame("Tic Tac Toe");
     public JButton[][] blocks = new JButton[3][3];
     public JButton reset = new JButton("Reset");
-    public JTextArea playerturn= new JTextArea();
+    public JTextArea playerturn = new JTextArea();
     public int player = 1;
     public int movesLeft = 9;
 
