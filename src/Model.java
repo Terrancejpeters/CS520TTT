@@ -5,6 +5,12 @@ public class Model {
 	private char player = 'X';
 	int movesLeft = 9;
 	
+	public Model() {
+		for (int row = 0; row < 3; row++)
+			for (int column = 0; column < 3; column++)
+				blocks[row][column] = ' ';
+	}
+	
 	public boolean checkWin() {
 		
 		// Returning a 1 means a win condition
@@ -16,7 +22,7 @@ public class Model {
 		for (int row = 0; row < 3; row++) {
 			if (blocks[row][0] == blocks[row][1] && blocks[row][0] == blocks[row][2] && blocks[row][0] != ' ') {
 				playerChecker();
-				movesLeft = 0;
+				//movesLeft = 0;
 				return true;
 			}
 		}
@@ -26,7 +32,7 @@ public class Model {
 		for (int col = 0; col < 3; col++) {
 			if (blocks[0][col] == blocks[1][col] && blocks[0][col] == blocks[2][col] && blocks[0][col] != ' ') {
 				playerChecker();
-				movesLeft = 0;
+				//movesLeft = 0;
 				return true;
 			}
 		}
@@ -37,13 +43,13 @@ public class Model {
 		if (blocks[0][0] == blocks[1][1] && blocks[0][0] == blocks[2][2] && blocks[0][0] != ' '
 				|| blocks[2][0] == blocks[1][1] && blocks[2][0] == blocks[0][2] && blocks[2][0] != ' '){
 			playerChecker();
-			movesLeft = 0;
+			//movesLeft = 0;
 			return true;
 		}
 		
-		if (movesLeft == 0) {
+		/*if (movesLeft == 0) {
 			return false;
-		}
+		}*/
 		
 		//Reminder to add a test condition flag here. This false SHOULD NOT BE HIT, but method needs a return statement
 		return false;
@@ -62,14 +68,17 @@ public class Model {
 	}
 	
 	//Player's turn
-		public void updateTurn(int x, int y, char previousPlayer) {
+	public void updateTurn(int x, int y, char previousPlayer) {
 
-			if (blocks[x][y] == ' ' && movesLeft > 0) {
+			if (movesLeft > 0 && blocks[x][y] == ' ') {
 				blocks[x][y] = previousPlayer;
+				
+				//Just check who's turn it becomes
 				if (previousPlayer == 'X') {
 					blocks[x][y] = player;
 					player = 'O';
 				} 
+				//if not X, then must be O
 				else {
 					blocks[x][y] = player;
 					player = 'X';
@@ -91,5 +100,18 @@ public class Model {
 		//Only read by players using the command line
 		System.out.println("New Game");
 		
+	}
+	
+	//Our Getters for the controller
+
+	public char getPlayerTurn() {
+		return player;
+	}
+
+	public char[][] getCharBlocks() {
+		return blocks;
+	}
+	public int getMovesLeft() {
+		return movesLeft;
 	}
 }

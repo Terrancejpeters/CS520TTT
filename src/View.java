@@ -19,9 +19,7 @@ public class View {
     //Generate the UI view.
     
     View(){
-    	
-    	
-    	
+ 
     	//Making life easier for ourselves, this code is taken from the original TicTacToe.java
     	
     	gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,6 +52,7 @@ public class View {
                 blocks[row][col].setPreferredSize(new Dimension(75,75));
                 blocks[row][col].setText("");
                 game.add(blocks[row][col]);
+                blocks[row][col].setFocusPainted(false);
 			}
 		}
     }
@@ -83,4 +82,18 @@ public class View {
             }
     	}
     }
+    
+//Finally our getter and setter methods for the controller
+    
+    public JButton[][] getButtonBlocks() {
+		return blocks;
+	}
+
+	public JButton getReset() {
+		return reset;
+	}
+
+	public void setBoard(char[][] Board) {
+		this.Board = Board;
+	}
 }
