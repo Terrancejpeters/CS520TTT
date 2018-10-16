@@ -13,9 +13,14 @@ public class View {
     public JButton reset = new JButton("Reset");
     public JTextArea playerturn = new JTextArea();
     
+    //We are going to add a two-dimensional Char array to manage X's and O's
+    private char[][] Board = {};
+    
     //Generate the UI view.
     
     View(){
+    	
+    	
     	
     	//Making life easier for ourselves, this code is taken from the original TicTacToe.java
     	
@@ -53,4 +58,27 @@ public class View {
 		}
     }
     
+    //Listen for when a user presses a button
+    public void buttonLis(ActionListener actionLis) {
+    	
+    	//First add a reset button action listener, since that's easy.
+    	
+    	reset.addActionListener(actionLis);
+    	
+    	//Next add the listener for every button.
+    	
+    	for(int row = 0; row < 3;row++) {
+            for(int col = 0; col < 3;col++) {
+            	blocks[row][col].addActionListener(actionLis);
+            }
+    	}
+    }
+    
+    void updateView() {
+    	for(int row = 0; row < 3;row++) {
+            for(int col = 0; col < 3;col++) {
+            	blocks[row][col].setText("" + Board[row][col]);
+            }
+    	}
+    }
 }
